@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Pet Shop Amigo Fiel</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="admin.css?v=2"> <!-- Separate CSS for specific admin styles to avoid messing up main site -->
+</head>
+<body class="admin-body">
+
+    <!-- LOGIN SCREEN OVERLAY (SAAS SPLIT SCREEN) -->
+    <div id="login-overlay" class="login-overlay">
+        <!-- Left Side: Branding -->
+        <div class="login-brand">
+            <div class="brand-content">
+                <i class="fas fa-paw brand-icon"></i>
+                <h2>Amigo Fiel</h2>
+                <p>Plataforma de Gestão Inteligente para Pet Shops. Controle agendamentos, faturamento e serviços em um só lugar.</p>
+            </div>
+            <!-- Decorative circles -->
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+        </div>
+
+        <!-- Right Side: Form -->
+        <div class="login-form-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <h2>Bem-vindo de volta</h2>
+                    <p>Insira suas credenciais para acessar o painel.</p>
+                </div>
+                
+                <form id="login-form" class="login-form">
+                    <div class="form-group">
+                        <label for="login-user">Usuário</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" id="login-user" class="form-control" placeholder="admin" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-pass">Senha</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="login-pass" class="form-control" placeholder="••••••" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="login-remember" checked> Manter conectado
+                        </label>
+                    </div>
+
+                    <div id="login-error" class="login-error" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i> Credenciais incorretas.
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block btn-login" id="btn-login-submit">
+                        Entrar no Dashboard <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+                
+                <div class="login-footer">
+                    <a href="../index.html"><i class="fas fa-arrow-left"></i> Voltar ao site principal</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP LAYOUT (Hidden until login) -->
+    <div id="app-layout" class="admin-layout" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-paw"></i> <span>Amigo Fiel</span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-tab="tab-agendamentos">
+                    <i class="fas fa-calendar-alt"></i> <span>Agendamentos</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="tab-relatorios">
+                    <i class="fas fa-chart-line"></i> <span>Relatórios</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="tab-vendas">
+                    <i class="fas fa-shopping-cart"></i> <span>Vendas de produtos</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="tab-financeiro">
+                    <i class="fas fa-wallet"></i> <span>Financeiro</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="btn-block" style="margin-bottom: 12px;">
+                    <i class="fas fa-external-link-alt"></i> <span>Ver Site Principal</span>
+                </a>
+                <button id="btn-logout" class="btn-block" style="background: transparent; color: #ef4444; border-color: #fee2e2; cursor: pointer;">
+                    <i class="fas fa-sign-out-alt"></i> <span>Sair da Conta</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header class="admin-header">
+                <div class="container header-flex">
+                    <h1 class="page-title">Painel de Controle</h1>
+                    <div class="user-profile">
+                        <div class="avatar"><i class="fas fa-user"></i></div>
+                        <span>Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <main class="admin-main section">
+                <div class="container">
+                    
+                    <!-- TAB: AGENDAMENTOS -->
+                    <div id="tab-agendamentos" class="tab-pane" style="display: block;">
+                        <div class="admin-header-actions">
+                        <div class="filters-wrapper">
+                            <div class="filter-group">
+                                <label for="filter-status">Status:</label>
+                                <select id="filter-status" class="form-control">
+                                    <option value="todos">Todos</option>
+                                    <option value="pendente">Pendentes</option>
+                                    <option value="concluido">Confirmados</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="filter-service">Serviço:</label>
+                                <select id="filter-service" class="form-control">
+                                    <option value="todos">Todos os Serviços</option>
+                                    <option value="Banho Relaxante">Banho</option>
+                                    <option value="Tosa Higiênica">Tosa Higiênica</option>
+                                    <option value="Tosa na Tesoura">Tosa Tesoura</option>
+                                    <option value="Tosa na Máquina">Tosa Máquina</option>
+                                    <option value="Hidratação">Hidratação</option>
+                                    <option value="Corte de Unhas">Corte de Unhas</option>
+                                    <option value="Pacote Completo">Pacote Completo</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="filter-date">Data:</label>
+                                <input type="date" id="filter-date" class="form-control">
+                                <button id="btn-today" class="btn btn-outline btn-sm">Hoje</button>
+                                <button id="btn-all" class="btn btn-outline btn-sm">Todos</button>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 16px; text-align: right;">
+                            <button id="btn-export-csv" class="btn btn-primary btn-sm">
+                                <i class="fas fa-file-csv"></i> Exportar CSV
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
+                            <div class="stat-info">
+                                <h3>Total Selecionado</h3>
+                                <p id="total-agendamentos">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon text-success"><i class="fas fa-check-circle"></i></div>
+                            <div class="stat-info">
+                                <h3>Confirmados</h3>
+                                <p id="total-concluidos">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card highlight-card">
+                            <div class="stat-icon text-primary"><i class="fas fa-dollar-sign"></i></div>
+                            <div class="stat-info">
+                                <h3>Faturamento Estimado</h3>
+                                <p id="total-faturamento">R$ 0,00</p>
+                            </div>
+                        </div>
+                    </div>
+
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Data e Hora</th>
+                            <th>Pet</th>
+                            <th>Tutor e Contato</th>
+                            <th>Serviço</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="agendamentos-tbody">
+                        <!-- Rendered via JS -->
+                    </tbody>
+                </table>
+                <div id="empty-state" class="empty-state" style="display: none;">
+                    <i class="fas fa-calendar-times"></i>
+                    <p>Nenhum agendamento encontrado para esta data.</p>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- TAB: RELATÓRIOS -->
+        <div id="tab-relatorios" class="tab-pane" style="display: none;">
+            <div class="admin-header-actions" style="margin-bottom: 24px;">
+                <div>
+                    <h1 class="page-title">Visão Geral</h1>
+                    <p style="color: var(--text-muted); margin-top: 4px; font-size: 0.95rem;">Métricas consolidadas do seu Pet Shop.</p>
+                </div>
+            </div>
+
+            <!-- KPI Cards for Reports -->
+            <div class="stats-row" style="margin-bottom: 32px;">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: var(--primary-light); color: var(--primary);"><i class="fas fa-wallet"></i></div>
+                    <div class="stat-info">
+                        <h3>Faturamento Global</h3>
+                        <p id="kpi-faturamento">R$ 0,00</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: var(--success-bg); color: var(--success);"><i class="fas fa-cut"></i></div>
+                    <div class="stat-info">
+                        <h3>Serviços Realizados</h3>
+                        <p id="kpi-servicos">0</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="charts-grid">
+                <!-- Gráfico de Faturamento -->
+                <div class="chart-card">
+                    <h3><i class="fas fa-chart-bar" style="color: var(--primary);"></i> Tendência de Receita</h3>
+                    <div class="chart-container">
+                        <canvas id="chartFaturamento"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfico de Serviços -->
+                <div class="chart-card">
+                    <h3><i class="fas fa-chart-pie" style="color: #3b82f6;"></i> Mix de Serviços</h3>
+                    <div class="chart-container">
+                        <canvas id="chartServicos"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: VENDAS DE PRODUTOS -->
+        <div id="tab-vendas" class="tab-pane" style="display: none;">
+            <div class="admin-header-actions" style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 class="page-title">Vendas de Produtos</h1>
+                    <p style="color: var(--text-muted); margin-top: 4px; font-size: 0.95rem;">Gerenciamento de vendas de produtos e estoque.</p>
+                </div>
+                
+                <div class="filters-wrapper" style="margin-left: auto; margin-right: 20px;">
+                    <div class="filter-group">
+                        <label for="filter-date-vendas">Data:</label>
+                        <input type="date" id="filter-date-vendas" class="form-control">
+                        <button id="btn-today-vendas" class="btn btn-outline btn-sm">Hoje</button>
+                        <button id="btn-all-vendas" class="btn btn-outline btn-sm">Todos</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <button id="btn-nova-venda" class="btn btn-primary" onclick="window.abrirModalVenda()">
+                        <i class="fas fa-plus"></i> Nova Venda
+                    </button>
+                </div>
+            </div>
+            
+            <div class="table-container" id="vendas-table-container" style="display: none;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Data e Hora</th>
+                            <th>Categoria</th>
+                            <th>Produto</th>
+                            <th>Qtd / Peso</th>
+                            <th>Pagamento</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vendas-tbody">
+                        <!-- JS renders here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="empty-state" id="vendas-empty-state" style="display: flex; flex-direction: column; align-items: center;">
+                <i class="fas fa-box-open"></i>
+                <p>Nenhuma venda registrada ainda.</p>
+            </div>
+        </div>
+
+        <!-- TAB: FINANCEIRO -->
+        <div id="tab-financeiro" class="tab-pane" style="display: none;">
+            <div class="admin-header-actions" style="margin-bottom: 24px;">
+                <div>
+                    <h1 class="page-title">Dashboard Financeiro</h1>
+                    <p style="color: var(--text-muted); margin-top: 4px; font-size: 0.95rem;">Visão consolidada de todas as entradas do negócio.</p>
+                </div>
+            </div>
+
+            <!-- KPI Cards Premium -->
+            <div class="stats-row" style="margin-bottom: 32px;">
+                <div class="stat-card" style="border-top: 4px solid #10b981; box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.1);">
+                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;"><i class="fas fa-money-check-alt"></i></div>
+                    <div class="stat-info">
+                        <h3>Total Recebido (Geral)</h3>
+                        <p id="kpi-fin-total">R$ 0,00</p>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-top: 4px solid #f59e0b; box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.1);">
+                    <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="stat-info">
+                        <h3>A Receber (Pendentes)</h3>
+                        <p id="kpi-fin-pendente">R$ 0,00</p>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-top: 4px solid #8b5cf6; box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.1);">
+                    <div class="stat-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;"><i class="fas fa-receipt"></i></div>
+                    <div class="stat-info">
+                        <h3>Ticket Médio</h3>
+                        <p id="kpi-fin-ticket">R$ 0,00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <!-- Gráfico de Receitas (Serviços x Produtos) -->
+                <div class="chart-card">
+                    <h3><i class="fas fa-balance-scale" style="color: #6366f1;"></i> Origem da Receita</h3>
+                    <div class="chart-container">
+                        <canvas id="chartFinOrigem"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfico de Meios de Pagamento (Doughnut) -->
+                <div class="chart-card">
+                    <h3><i class="fas fa-credit-card" style="color: #ec4899;"></i> Meios de Pagamento (Vendas)</h3>
+                    <div class="chart-container">
+                        <canvas id="chartFinPagamentos"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+</div>
+
+    <style>
+        /* CSS INJETADO PARA EVITAR CACHE E PROBLEMAS DE DISPLAY */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(15, 23, 42, 0.8);
+            display: flex; align-items: center; justify-content: center; z-index: 999999 !important;
+            backdrop-filter: blur(4px);
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.show-modal {
+            opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;
+        }
+        .modal-content {
+            background: white; border-radius: 16px; width: 100%; max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); overflow: hidden;
+            transform: translateY(20px); transition: all 0.3s ease;
+        }
+        .modal-overlay.show-modal .modal-content {
+            transform: translateY(0);
+        }
+        .modal-header {
+            padding: 24px; border-bottom: 1px solid #e2e8f0;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .modal-header h2 { font-size: 1.25rem; font-weight: 600; color: #0f172a; margin: 0; }
+        .btn-close-modal {
+            background: transparent; border: none; font-size: 1.25rem; color: #64748b; cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-close-modal:hover { color: #ef4444; }
+        .modal-body { padding: 24px; }
+        .btn-outline {
+            background: transparent; border: 1px solid #e2e8f0; color: #0f172a;
+            padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 500; transition: 0.2s;
+        }
+        .btn-outline:hover { background: #f8fafc; }
+    </style>
+
+    <!-- MODAL: NOVA VENDA -->
+    <div id="modal-venda" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Registrar Nova Venda</h2>
+                <button id="btn-close-modal-venda" class="btn-close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-nova-venda">
+                    <div class="form-group">
+                        <label for="venda-categoria">Categoria do Produto</label>
+                        <select id="venda-categoria" class="form-control" required>
+                            <option value="">Selecione a categoria</option>
+                            <option value="Acessório">Acessório</option>
+                            <option value="Brinquedo">Brinquedo</option>
+                            <option value="Medicamento">Medicamento</option>
+                            <option value="Ração">Ração</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="venda-produto">Nome do Produto</label>
+                        <input type="text" id="venda-produto" class="form-control" placeholder="Ex: Coleira de couro" required>
+                    </div>
+                    <div class="form-group row" style="display: flex; gap: 16px;">
+                        <div style="flex: 1;">
+                            <label for="venda-preco">Preço Unitário (R$)</label>
+                            <input type="number" id="venda-preco" class="form-control" step="0.01" min="0" placeholder="0.00" required>
+                        </div>
+                        <div style="flex: 1;" id="group-qtd">
+                            <label for="venda-qtd">Quantidade (Unidades)</label>
+                            <input type="number" id="venda-qtd" class="form-control" value="1" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-group" id="group-kilos" style="display: none;">
+                        <label for="venda-kilos">Peso (Kg)</label>
+                        <input type="number" id="venda-kilos" class="form-control" step="0.1" min="0" placeholder="Ex: 15.0">
+                    </div>
+                    <div class="form-group row" style="display: flex; gap: 16px;">
+                        <div style="flex: 1;">
+                            <label for="venda-pagamento">Forma de Pagamento</label>
+                            <select id="venda-pagamento" class="form-control" required>
+                                <option value="">Selecione...</option>
+                                <option value="Dinheiro">Dinheiro</option>
+                                <option value="Pix">Pix</option>
+                                <option value="Cartão">Cartão</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1; display: none;" id="group-cartao">
+                            <label for="venda-cartao-tipo">Tipo de Cartão</label>
+                            <select id="venda-cartao-tipo" class="form-control">
+                                <option value="Crédito">Crédito</option>
+                                <option value="Débito">Débito</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="margin-top: 24px; display: flex; justify-content: flex-end; gap: 12px;">
+                        <button type="button" id="btn-cancel-venda" class="btn btn-outline">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" style="width: auto;">Confirmar Venda</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js?v=23"></script>
+</body>
+</html>

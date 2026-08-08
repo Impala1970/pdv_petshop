@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Shop Amigo Fiel | O Melhor Cuidado Para o Seu Pet</title>
+    <meta name="description" content="Agende banho, tosa e muito mais no Pet Shop Amigo Fiel. O melhor cuidado, carinho e produtos de qualidade para o seu pet.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <img src="assets/images/logo.png" alt="Pet Shop Amigo Fiel Logo" class="logo-img">
+                <span class="logo-text">Amigo Fiel</span>
+            </a>
+            
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link">Início</a></li>
+                    <li><a href="#servicos" class="nav-link">Serviços</a></li>
+                    <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                    <li><a href="#contato" class="nav-link">Contato</a></li>
+                </ul>
+            </nav>
+            
+            <a href="#agendamento" class="btn btn-primary header-btn">Agendar Horário</a>
+            
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Abrir menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Amor e cuidado que seu melhor amigo merece 🐾</h1>
+                    <p class="hero-subtitle">Banhos relaxantes, tosas estilosas e muito carinho. Deixe seu pet ainda mais feliz e cheiroso com a nossa equipe especializada.</p>
+                    <div class="hero-actions">
+                        <a href="#agendamento" class="btn btn-primary btn-large">
+                            <i class="fas fa-calendar-check"></i> Agendar Agora
+                        </a>
+                        <a href="#servicos" class="btn btn-outline btn-large">Ver Serviços</a>
+                    </div>
+                </div>
+                <div class="hero-image-wrapper">
+                    <img src="assets/images/hero.png" alt="Cachorro feliz e limpo" class="hero-image">
+                    <div class="floating-badge badge-1">
+                        <i class="fas fa-heart"></i>
+                        <span>Carinho Garantido</span>
+                    </div>
+                    <div class="floating-badge badge-2">
+                        <i class="fas fa-star"></i>
+                        <span>Profissionais Qualificados</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-shape-divider">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="servicos" class="services section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle">O que oferecemos</span>
+                    <h2 class="section-title">Nossos Serviços para seu Pet</h2>
+                    <p class="section-description">Trabalhamos com produtos hipoalergênicos e profissionais treinados para garantir o melhor resultado sem causar estresse.</p>
+                </div>
+                
+                <div class="services-grid">
+                    <!-- Service 1 -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-bath"></i>
+                        </div>
+                        <h3 class="service-title">Banho Relaxante</h3>
+                        <p class="service-desc">Limpeza profunda com shampoos específicos para cada tipo de pelagem, incluindo secagem cuidadosa.</p>
+                        <span class="service-price">A partir de R$ 40</span>
+                    </div>
+                    
+                    <!-- Service 2 -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-cut"></i>
+                        </div>
+                        <h3 class="service-title">Tosa Higiênica</h3>
+                        <p class="service-desc">Aparo dos pelos da barriga, patinhas e região íntima para manter a higiene e conforto do seu pet.</p>
+                        <span class="service-price">A partir de R$ 30</span>
+                    </div>
+                    
+                    <!-- Service 3 -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-scissors"></i>
+                        </div>
+                        <h3 class="service-title">Tosa na Tesoura</h3>
+                        <p class="service-desc">Corte modelado e personalizado feito totalmente na tesoura para um acabamento perfeito e natural.</p>
+                        <span class="service-price">A partir de R$ 80</span>
+                    </div>
+                    
+                    <!-- Service 4 -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="service-title">Tosa na Máquina</h3>
+                        <p class="service-desc">Tosa prática e uniforme, ideal para dias quentes ou para cães com pelagem muito densa.</p>
+                        <span class="service-price">A partir de R$ 60</span>
+                    </div>
+                    
+                    <!-- Service 5 -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <h3 class="service-title">Hidratação</h3>
+                        <p class="service-desc">Tratamento intensivo para recuperar o brilho, maciez e desembaraçar pelos danificados.</p>
+                        <span class="service-price">A partir de R$ 35</span>
+                    </div>
+                    
+                    <!-- Service 6 -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <h3 class="service-title">Corte de Unhas</h3>
+                        <p class="service-desc">Aparo seguro das unhas, prevenindo machucados, encravamentos e desconforto ao caminhar.</p>
+                        <span class="service-price">R$ 15</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="agendamento" class="booking section">
+            <div class="container booking-container">
+                <div class="booking-image" style="background-image: url('assets/images/booking-bg.png');">
+                    <div class="glass-overlay"></div>
+                    <div class="booking-text-wrap">
+                        <h2>Pronto para deixar seu pet incrível?</h2>
+                        <p>Preencha o formulário e nossa equipe entrará em contato para confirmar o agendamento o mais rápido possível!</p>
+                        <ul class="booking-features">
+                            <li><i class="fas fa-check-circle"></i> Agendamento rápido e fácil</li>
+                            <li><i class="fas fa-check-circle"></i> Confirmação imediata</li>
+                            <li><i class="fas fa-check-circle"></i> Flexibilidade de horários</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="booking-form-wrapper">
+                    <form id="booking-form" class="booking-form">
+                        <div class="form-header">
+                            <h3 class="form-title">Agendar Horário</h3>
+                            <p class="form-subtitle">Preencha os dados abaixo com atenção</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tutorNome">Seu Nome (Tutor) *</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" id="tutorNome" name="tutorNome" required placeholder="Ex: Maria Silva">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefone">WhatsApp / Telefone *</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fab fa-whatsapp input-icon"></i>
+                                <input type="tel" id="telefone" name="telefone" required placeholder="(00) 00000-0000">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="petNome">Nome do Pet *</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-paw input-icon"></i>
+                                    <input type="text" id="petNome" name="petNome" required placeholder="Ex: Rex">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="especie">Espécie *</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-cat input-icon"></i>
+                                    <select id="especie" name="especie" required>
+                                        <option value="" disabled selected>Selecione...</option>
+                                        <option value="Cachorro">Cachorro</option>
+                                        <option value="Gato">Gato</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Campo Raça Oculto Inicialmente -->
+                        <div class="form-group" id="racaGroup" style="display: none; margin-top: -8px; margin-bottom: 20px;">
+                            <label for="raca">Raça do Cachorro *</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-dog input-icon"></i>
+                                <input type="text" id="raca" name="raca" placeholder="Ex: Poodle, Shih Tzu, etc...">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="porte">Porte do Pet *</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-weight-hanging input-icon"></i>
+                                    <select id="porte" name="porte" required>
+                                        <option value="" disabled selected>Selecione...</option>
+                                        <option value="Pequeno (até 10kg)">Pequeno (até 10kg)</option>
+                                        <option value="Médio (10kg a 25kg)">Médio (10kg a 25kg)</option>
+                                        <option value="Grande (acima de 25kg)">Grande (acima de 25kg)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="servico">Serviço Desejado *</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-cut input-icon"></i>
+                                    <select id="servico" name="servico" required>
+                                        <option value="" disabled selected>Selecione...</option>
+                                        <option value="Banho Relaxante">Banho Relaxante</option>
+                                        <option value="Tosa Higiênica">Tosa Higiênica</option>
+                                        <option value="Tosa na Tesoura">Tosa na Tesoura</option>
+                                        <option value="Tosa Máquina">Tosa Máquina</option>
+                                        <option value="Hidratação">Hidratação</option>
+                                        <option value="Corte de Unhas">Corte de Unhas</option>
+                                        <option value="Pacote Completo">Pacote Completo (Banho + Tosa)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="data">Data Preferida *</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-calendar-alt input-icon"></i>
+                                    <input type="date" id="data" name="data" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="horario">Horário Preferido *</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-clock input-icon"></i>
+                                    <input type="time" id="horario" name="horario" min="08:00" max="18:00" step="1800" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="observacoes">Observações (opcional)</label>
+                            <textarea id="observacoes" name="observacoes" rows="3" placeholder="Alguma alergia? Comportamento do pet?"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block btn-submit">
+                            Confirmar Agendamento <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="sobre" class="about section">
+            <div class="container about-container">
+                <div class="about-image-wrapper">
+                    <!-- A decorative element could go here, or we just use CSS shapes -->
+                    <div class="about-card-info">
+                        <h3>10+ Anos</h3>
+                        <p>De experiência cuidando de pets</p>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <span class="section-subtitle">Nossa História</span>
+                    <h2 class="section-title">Apaixonados por animais, assim como você!</h2>
+                    <p>O Pet Shop Amigo Fiel nasceu de um sonho de criar um ambiente onde cada animal fosse tratado com o mesmo amor e respeito que recebe em casa. Sabemos que seu pet é um membro da família, e é exatamente assim que o tratamos aqui.</p>
+                    <p>Nosso espaço foi cuidadosamente projetado para minimizar o estresse, utilizando aromaterapia leve, música calmante e profissionais que têm verdadeira paixão pelo que fazem.</p>
+                    
+                    <ul class="about-differentials">
+                        <li>
+                            <i class="fas fa-heartbeat text-primary"></i>
+                            <div>
+                                <h4>Produtos Hipoalergênicos</h4>
+                                <p>Usamos apenas as melhores marcas para garantir a saúde da pele e pelo.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-medal text-primary"></i>
+                            <div>
+                                <h4>Equipe Qualificada</h4>
+                                <p>Nossos tosadores passam por treinamentos constantes.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Location -->
+        <section id="contato" class="contact section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="section-subtitle">Onde Estamos</span>
+                    <h2 class="section-title">Contato e Localização</h2>
+                    <p class="section-description">Venha nos fazer uma visita ou entre em contato pelos nossos canais de atendimento.</p>
+                </div>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="contact-details">
+                                <h4>Endereço</h4>
+                                <p>Rua dos Animais, 123 - Bairro Jardim<br>São Paulo, SP - 01234-567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="contact-details">
+                                <h4>Telefone / WhatsApp</h4>
+                                <p><a href="tel:+5511999999999">(11) 99999-9999</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-details">
+                                <h4>E-mail</h4>
+                                <p><a href="mailto:contato@amigofiel.com.br">contato@amigofiel.com.br</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                            <div class="contact-details">
+                                <h4>Horário de Funcionamento</h4>
+                                <p>Segunda a Sexta: 08:00 às 18:00<br>Sábado: 08:00 às 14:00</p>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links">
+                            <a href="#" aria-label="Instagram" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Facebook" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="WhatsApp" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-map">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117036.0125435017!2d-46.73289045!3d-23.5505199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sS%C3%A3o%20Paulo%2C%20SP!5e0!3m2!1spt-BR!2sbr!4v1714000000000!5m2!1spt-BR!2sbr" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Localização do Pet Shop no Google Maps">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="#" class="logo footer-logo">
+                    <i class="fas fa-paw text-primary"></i>
+                    <span class="logo-text">Amigo Fiel</span>
+                </a>
+                <p>O melhor pet shop para o seu melhor amigo. Cuidado, carinho e dedicação em cada detalhe.</p>
+            </div>
+            
+            <div class="footer-links-group">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#agendamento">Agendar Horário</a></li>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links-group">
+                <h4>Serviços</h4>
+                <ul>
+                    <li><a href="#servicos">Banho</a></li>
+                    <li><a href="#servicos">Tosas Diversas</a></li>
+                    <li><a href="#servicos">Hidratação</a></li>
+                    <li><a href="#servicos">Corte de Unhas</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 Pet Shop Amigo Fiel. Todos os direitos reservados.</p>
+                <p class="developer">Desenvolvido com <i class="fas fa-heart text-primary"></i></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal-overlay">
+        <div class="modal-content text-center">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Agendamento Recebido!</h3>
+            <p>Seu pedido de agendamento foi salvo com sucesso. Nossa equipe entrará em contato em breve para confirmar os detalhes.</p>
+            <button id="close-modal" class="btn btn-primary">Entendido</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="main.js?v=2"></script>
+</body>
+</html>
