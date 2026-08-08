@@ -10,6 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterServiceSelect = document.getElementById('filter-service');
     const btnToday = document.getElementById('btn-today');
     const btnAll = document.getElementById('btn-all');
+    const btnToggleSidebar = document.getElementById('btn-toggle-sidebar');
+    const sidebar = document.querySelector('.sidebar');
+    const adminLayout = document.querySelector('.admin-layout');
+    
+    if (btnToggleSidebar) {
+        btnToggleSidebar.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            adminLayout.classList.toggle('sidebar-collapsed');
+        });
+    }
     
     // Vendas DOM Elements
     const vendasTableContainer = document.getElementById('vendas-table-container');
@@ -29,6 +39,124 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalFaturamentoEl = document.getElementById('total-faturamento');
     
     let currentFilteredData = []; // Store globally for CSV export
+
+    // Dynamic Banners for each tab
+    const initBanners = () => {
+        const bannersConfig = {
+            'tab-agendamentos': {
+                img: '../assets/dog_sitting.png',
+                icon: 'fa-paw',
+                steps: [
+                    { title: 'Bem-vindo a Agendamentos! 👋', text: 'Aqui você gerencia o dia a dia do seu Pet Shop.' },
+                    { title: 'Confirme Agendamentos 📅', text: 'Acompanhe o que está pendente e garanta que nenhum pet fique de fora.' },
+                    { title: 'Filtre por Serviço ✂️', text: 'Ache rapidamente os banhos, tosas e outros serviços marcados.' }
+                ]
+            },
+            'tab-relatorios': {
+                img: '../assets/dog_sleeping.png',
+                icon: 'fa-chart-pie',
+                steps: [
+                    { title: 'Seus Relatórios 📊', text: 'Aqui você acompanha o desempenho geral do negócio.' },
+                    { title: 'Gráficos Inteligentes 📈', text: 'Visualize rapidamente a tendência de receitas e o mix de serviços.' },
+                    { title: 'Tome Decisões Rápidas 💡', text: 'Use os dados para focar no que dá mais lucro.' }
+                ]
+            },
+            'tab-vendas': {
+                img: '../assets/dog_playing.png',
+                icon: 'fa-shopping-bag',
+                steps: [
+                    { title: 'Venda de Produtos 🛒', text: 'Registre facilmente o que sai do seu estoque.' },
+                    { title: 'Controle Facilitado 🦴', text: 'Cadastre vendas no cartão, dinheiro ou pix em segundos.' },
+                    { title: 'Integração Total 📋', text: 'Tudo fica integrado no seu faturamento geral.' }
+                ]
+            },
+            'tab-financeiro': {
+                img: '../assets/dog_finance.png',
+                icon: 'fa-coins',
+                steps: [
+                    { title: 'Seu Financeiro 💰', text: 'Veja de onde vem o dinheiro e para onde ele vai.' },
+                    { title: 'Origem da Receita 💳', text: 'Saiba o quanto vem de serviços e o quanto vem de produtos.' },
+                    { title: 'Meios de Pagamento 🏦', text: 'Acompanhe Pix, Cartão e Dinheiro sem mistérios.' }
+                ]
+            }
+        };
+
+        Object.keys(bannersConfig).forEach(tabId => {
+            const tabEl = document.getElementById(tabId);
+            if(!tabEl) return;
+            const config = bannersConfig[tabId];
+            
+            let stepsHtml = '';
+            config.steps.forEach((step, index) => {
+                stepsHtml += `
+                    <div class="banner-step" data-step="${index}" style="display: ${index === 0 ? 'block' : 'none'};">
+                        <h2 style="font-size: 1.6rem; margin-bottom: 8px; font-family: var(--font-heading); color: white; margin-top: 0;">${step.title}</h2>
+                        <p style="font-size: 0.95rem; opacity: 0.9; line-height: 1.5; margin-bottom: 0;">${step.text}</p>
+                    </div>
+                `;
+            });
+            
+            let dotsHtml = '';
+            config.steps.forEach((_, index) => {
+                dotsHtml += `<span class="banner-dot" data-step="${index}" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: ${index === 0 ? 'white' : 'rgba(255,255,255,0.4)'}; margin-right: 6px; transition: 0.2s;"></span>`;
+            });
+
+            const bannerHtml = `
+                <div class="dynamic-banner" style="background: var(--primary); border-radius: var(--radius-lg); padding: 24px 32px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; box-shadow: var(--shadow-md); position: relative; overflow: hidden; min-height: 180px;">
+                    <div style="max-width: 500px; position: relative; z-index: 2; width: 100%;">
+                        ${stepsHtml}
+                        <div class="banner-controls" style="margin-top: 20px; display: flex; align-items: center;">
+                            <div class="step-dots" style="margin-right: 16px; display: flex; align-items: center;">
+                                ${dotsHtml}
+                            </div>
+                            <button class="btn btn-sm btn-next-step" style="background: white; color: var(--primary); border: none; font-weight: bold; border-radius: 20px; padding: 6px 16px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Próxima <i class="fas fa-arrow-right" style="margin-left: 6px;"></i></button>
+                        </div>
+                    </div>
+                    <div class="banner-illustration" style="position: absolute; right: 0; bottom: 0; z-index: 2; width: 220px; height: 100%; display: flex; align-items: flex-end; justify-content: flex-end;">
+                        <img src="${config.img}" alt="Dog" style="width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; -webkit-mask-image: radial-gradient(circle, black 50%, transparent 80%); mask-image: radial-gradient(circle, black 50%, transparent 80%);">
+                    </div>
+                    <!-- Decorative Background Icon in Soft Orange -->
+                    <div style="position: absolute; bottom: -40px; right: 200px; font-size: 16rem; color: #ffd6b3; opacity: 0.3; z-index: 1; transform: rotate(-15deg);">
+                        <i class="fas ${config.icon}"></i>
+                    </div>
+                    <!-- Decorative Circles -->
+                    <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,0.05); z-index: 1;"></div>
+                    <div style="position: absolute; bottom: -80px; left: 80px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.03); z-index: 1;"></div>
+                </div>
+            `;
+            
+            const bannerContainer = document.createElement('div');
+            bannerContainer.innerHTML = bannerHtml;
+            tabEl.insertBefore(bannerContainer, tabEl.firstChild);
+
+            // Logic for steps
+            let currentStep = 0;
+            const btnNext = bannerContainer.querySelector('.btn-next-step');
+            const steps = bannerContainer.querySelectorAll('.banner-step');
+            const dots = bannerContainer.querySelectorAll('.banner-dot');
+            
+            btnNext.addEventListener('click', () => {
+                // If on last step and clicked "Entendi", we could close it. But user just asked for "next", so we can loop or hide.
+                if (currentStep === steps.length - 1) {
+                    bannerContainer.style.display = 'none'; // Dismiss banner
+                    return;
+                }
+
+                steps[currentStep].style.display = 'none';
+                dots[currentStep].style.background = 'rgba(255,255,255,0.4)';
+                
+                currentStep++;
+                
+                steps[currentStep].style.display = 'block';
+                dots[currentStep].style.background = 'white';
+                
+                if (currentStep === steps.length - 1) {
+                    btnNext.innerHTML = 'Entendi <i class="fas fa-check" style="margin-left: 6px;"></i>';
+                }
+            });
+        });
+    };
+    initBanners();
 
     // Tabela de Preços (Fictícia)
     const precosServicos = {
@@ -137,6 +265,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update global variable for CSV
         currentFilteredData = agendamentosFiltrados;
         
+        // Pending Alert Logic
+        const pendingCount = todosAgendamentos.filter(a => a.status === 'pendente').length;
+        const pendingContainer = document.getElementById('pending-alert-container');
+        const pendingCountEl = document.getElementById('pending-count');
+        
+        if (pendingContainer && pendingCountEl) {
+            // Show alert if there are pending items AND we are not already explicitly filtering ONLY by pending
+            if (pendingCount > 0 && filterStatusSelect.value !== 'pendente') {
+                pendingCountEl.textContent = pendingCount;
+                pendingContainer.style.display = 'flex';
+            } else {
+                pendingContainer.style.display = 'none';
+            }
+        }
+
         tbody.innerHTML = '';
 
         if (agendamentosFiltrados.length === 0) {
@@ -803,6 +946,16 @@ document.addEventListener('DOMContentLoaded', () => {
         filterServiceSelect.value = 'todos';
         renderTable(null);
     });
+
+    const btnViewPending = document.getElementById('btn-view-pending');
+    if (btnViewPending) {
+        btnViewPending.addEventListener('click', () => {
+            filterDateInput.value = '';
+            filterStatusSelect.value = 'pendente';
+            filterServiceSelect.value = 'todos';
+            renderTable(null);
+        });
+    }
 
     // Filter Events Vendas
     if (filterDateVendas) {
