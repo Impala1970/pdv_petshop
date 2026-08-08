@@ -403,6 +403,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Render Agenda
+    const renderAgendaTable = async () => {
+        const tbody = document.getElementById('agenda-tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '<tr><td colspan="3" class="text-center"><i class="fas fa-spinner fa-spin"></i> Carregando...</td></tr>';
+        
+        const todosAgendamentos = await getAgendamentos();
+        
+        const grouped = {};
+        todosAgendamentos.forEach(a => {
+            if (a.status === 'concluido') {
+                if (!grouped[a.data]) grouped[a.data] = { date: a.data, count: 0, revenue: 0 };
+                grouped[a.data].count += 1;
+                grouped[a.data].revenue += (precosServicos[a.servico] || 0);
+            }
+        });
+        
+        const sortedDates = Object.values(grouped).sort((a,b) => {
+            return b.date.localeCompare(a.date);
+        });
+        
+        tbody.innerHTML = '';
+        if (sortedDates.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" class="text-center" style="padding: 30px;"><i class="fas fa-calendar-times" style="font-size: 24px; color: #cbd5e1; margin-bottom: 10px;"></i><br>Nenhum dia com serviços confirmados.</td></tr>';
+        } else {
+            sortedDates.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${formatDate(item.date)}</strong></td>
+                    <td><span class="badge" style="background: #e0f2fe; color: #0284c7;">${item.count} serviço(s)</span></td>
+                    <td><strong>R$ ${item.revenue.toFixed(2).replace('.', ',')}</strong></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    };
+
     // Sidebar Navigation Logic
     const navItems = document.querySelectorAll('.nav-item');
     const tabPanes = document.querySelectorAll('.tab-pane');
@@ -431,6 +468,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (targetTab === 'tab-financeiro' && chartFinOrigemInstance) {
                     chartFinOrigemInstance.resize();
                     chartFinPagamentosInstance.resize();
+                }
+                
+                if (targetTab === 'tab-agenda') {
+                    renderAgendaTable();
                 }
             }
         });

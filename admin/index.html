@@ -92,6 +92,9 @@
                 <a href="#" class="nav-item active" data-tab="tab-agendamentos">
                     <i class="fas fa-calendar-alt"></i> <span>Agendamentos</span>
                 </a>
+                <a href="#" class="nav-item" data-tab="tab-agenda">
+                    <i class="fas fa-calendar-check"></i> <span>Agenda Diária</span>
+                </a>
                 <a href="#" class="nav-item" data-tab="tab-relatorios">
                     <i class="fas fa-chart-line"></i> <span>Relatórios</span>
                 </a>
@@ -212,6 +215,31 @@
                     <p>Nenhum agendamento encontrado para esta data.</p>
                 </div>
             </div>
+            </div>
+        </div>
+
+        <!-- TAB: AGENDA DIÁRIA -->
+        <div id="tab-agenda" class="tab-pane" style="display: none;">
+            <div class="admin-header-actions" style="margin-bottom: 24px;">
+                <div>
+                    <h1 class="page-title">Agenda Diária</h1>
+                    <p style="color: var(--text-muted); margin-top: 4px; font-size: 0.95rem;">Resumo dos dias com serviços confirmados e faturamento gerado.</p>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Serviços Confirmados</th>
+                            <th>Faturamento (R$)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="agenda-tbody">
+                        <!-- Rendered via JS -->
+                    </tbody>
+                </table>
             </div>
         </div>
 
